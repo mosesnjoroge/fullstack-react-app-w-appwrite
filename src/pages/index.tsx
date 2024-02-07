@@ -11,7 +11,8 @@ import events from '@/data/events.json';
 function Home() {
   useEffect(() => {
     (async function run() {
-      await databases.listDocuments(import.meta.env.VITE_APP_APPWRITE_EVENTS_DATABASE_ID, import.meta.env.VITE_APP_APPWRITE_EVENTS_COLLECTION_ID)
+      const result = await databases.listDocuments(import.meta.env.VITE_APP_APPWRITE_EVENTS_DATABASE_ID, import.meta.env.VITE_APP_APPWRITE_EVENTS_COLLECTION_ID)
+      console.log('results')
     })()
   }, [])
 
