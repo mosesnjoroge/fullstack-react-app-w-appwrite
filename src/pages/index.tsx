@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { Link } from 'wouter';
 
+import { databases } from '@/lib/appwrite';
 import Layout from '@/components/Layout';
 import Container from '@/components/Container';
 import EventCard from '@/components/EventCard';
@@ -7,6 +9,12 @@ import EventCard from '@/components/EventCard';
 import events from '@/data/events.json';
 
 function Home() {
+  useEffect(() => {
+    (async function run() {
+      await databases.listDocuments(import.meta.env.VITE_APP_APPWRITE_EVENTS_DATABASE_ID, import.meta.env.VITE_APP_APPWRITE_EVENTS_COLLECTION_ID)
+    })()
+  }, [])
+
   return (
     <Layout>
       {Array.isArray(events) && events.length > 0 && (
@@ -23,7 +31,7 @@ function Home() {
               </Link>
             </p>
           </Container>
-          
+
           <Container>
             <div className="grid gap-12 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {events.map((event) => {
