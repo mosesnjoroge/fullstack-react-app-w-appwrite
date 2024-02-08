@@ -9,15 +9,17 @@ import { LiveBeatEvent } from '@/types/events';
 
 // import events from '@/data/events.json';
 
-function Event() {
-  const [event,setEvent] = useState<Array<LiveBeatEvent> | undefined>();
+function Event({params}: {params: {eventId: string}}) {
+  // console.log('params',params);
+
+  const [event,setEvent] = useState<LiveBeatEvent | undefined>();
 
   useEffect(() => {
     (async function run() {
-      const {event} = await getEventByID('65c2e089019e4472b43d')
+      const { event } = await getEventByID(params.eventId)
       setEvent(event);
-    })()
-  }, [])
+    })();
+  }, [params.eventId]);
 
   // const image = {
   //   url: events[0].imageUrl,
