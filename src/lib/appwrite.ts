@@ -9,7 +9,7 @@ client
 
 const promise = databases.listDocuments(
     import.meta.env.VITE_APP_APPWRITE_EVENTS_DATABASE_ID,
-    import.meta.env.VITE_APP_APPWRITE_EVENTS_COLLECTION_ID
+    import.meta.env.VITE_APP_APPWRITE_EVENTS_COLLECTION_ID,
   );
 
 promise.then(function(response){
