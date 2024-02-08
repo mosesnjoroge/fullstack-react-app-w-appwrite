@@ -1,21 +1,34 @@
+import { useState, useEffect } from 'react';
+
 import Layout from '@/components/Layout';
 import Container from '@/components/Container';
 // import Button from '@/components/Button';
 
-import events from '@/data/events.json';
+import { getEventByID } from '@/lib/events';
+import { LiveBeatEvent } from '@/types/events';
+
+// import events from '@/data/events.json';
 
 function Event() {
-  const event = events[0];
-  const image = {
-    url: events[0].imageUrl,
-    alt: ''
-  };
+  const [event,setEvent] = useState<Array<LiveBeatEvent> | undefined>();
+
+  useEffect(() => {
+    (async function run() {
+      const {event} = await getEventByID('65c2e089019e4472b43d')
+      setEvent(event);
+    })()
+  }, [])
+
+  // const image = {
+  //   url: events[0].imageUrl,
+  //   alt: ''
+  // };
 
   return (
     <Layout>
       <Container className="grid gap-12 grid-cols-1 md:grid-cols-2">
         <div>
-          {image?.url && (
+          {/* {image?.url && (
             <img
               className="block rounded"
               width={800}
@@ -23,7 +36,7 @@ function Event() {
               src={image.url}
               alt={image.alt}
             />
-          )}
+          )} */}
         </div>
 
         <div>
