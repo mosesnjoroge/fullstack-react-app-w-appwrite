@@ -12,6 +12,7 @@ import EventCard from '@/components/EventCard';
 function Home() {
 
   const [events, setEvents] = useState<Array<LiveBeatEvent> | undefined>();
+
   useEffect(() => {
     (async function run() {
       const { events } = await getEvents()
@@ -44,12 +45,12 @@ function Home() {
                     <a>
                       <EventCard
                         date={event.date}
-                        image={{
-                          alt: '',
-                          height: event.imageHeight,
-                          url: event.imageUrl,
-                          width: event.imageWidth
-                        }}
+                        // image={{
+                        //   alt: '',
+                        //   height: event.imageHeight,
+                        //   url: event.imageUrl,
+                        //   width: event.imageWidth
+                        // }}
                         location={event.location}
                         name={event.name}
                       />
