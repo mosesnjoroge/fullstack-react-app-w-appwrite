@@ -5,17 +5,17 @@ import { databases } from '@/lib/appwrite';
 import Layout from '@/components/Layout';
 import Container from '@/components/Container';
 import EventCard from '@/components/EventCard';
+import { LiveBeatEvent } from '@/types/events';
 
-// import events from '@/data/events.json';
+import { getEvent } from '@/lib/events';
 
 function Home() {
 
-  const [events, setEvents] = useState();
+  const [events, setEvents] = useState<Array<LiveBeatEvent> | undefined>();
   useEffect(() => {
     (async function run() {
       const results = await databases.listDocuments(import.meta.env.VITE_APP_APPWRITE_EVENTS_DATABASE_ID, import.meta.env.VITE_APP_APPWRITE_EVENTS_COLLECTION_ID)
       setEvents(results.documents);
-      // console.log('results')
     })()
   }, [])
 
@@ -78,5 +78,6 @@ function Home() {
     </Layout>
   )
 }
+
 
 export default Home;
