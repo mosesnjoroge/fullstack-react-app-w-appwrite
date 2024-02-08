@@ -1,7 +1,7 @@
-import { LiveBeatEvent } from "@/types/events";
 import { databases } from "./appwrite";
+import { LiveBeatEvent } from "@/types/events";
 
-export async function getEvent() {
+export async function getEvents() {
   const {documents} = await databases.listDocuments(import.meta.env.VITE_APP_APPWRITE_EVENTS_DATABASE_ID, import.meta.env.VITE_APP_APPWRITE_EVENTS_COLLECTION_ID);
   return {
     events:documents.map(document =>{
@@ -11,6 +11,7 @@ export async function getEvent() {
         location:document.location,
         date:document.date,
       }
+      return event;
     })
   }
 }

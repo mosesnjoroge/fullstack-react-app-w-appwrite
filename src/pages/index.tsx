@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'wouter';
 
-import { databases } from '@/lib/appwrite';
+import { getEvents } from '@/lib/events';
+import { LiveBeatEvent } from '@/types/events';
+
 import Layout from '@/components/Layout';
 import Container from '@/components/Container';
 import EventCard from '@/components/EventCard';
-import { LiveBeatEvent } from '@/types/events';
 
-import { getEvent } from '@/lib/events';
 
 function Home() {
 
   const [events, setEvents] = useState<Array<LiveBeatEvent> | undefined>();
   useEffect(() => {
     (async function run() {
-      const results = await databases.listDocuments(import.meta.env.VITE_APP_APPWRITE_EVENTS_DATABASE_ID, import.meta.env.VITE_APP_APPWRITE_EVENTS_COLLECTION_ID)
-      setEvents(results.documents);
+      const { events } = await getEvents()
+      setEvents(events);
     })()
   }, [])
 
