@@ -10,8 +10,6 @@ import { LiveBeatEvent } from '@/types/events';
 // import events from '@/data/events.json';
 
 function Event({params}: {params: {eventId: string}}) {
-  // console.log('params',params);
-
   const [event,setEvent] = useState<LiveBeatEvent | undefined>();
 
   useEffect(() => {
