@@ -13,11 +13,13 @@ import Container from '@/components/Container';
 function Event({params}: {params: {eventId: string}}) {
   // states
   const [event,setEvent] = useState<LiveBeatEvent | undefined>();
-
+  console.log('event',event);
   const imageUrl = event?.imageFileID && getPreviewImageById(event.imageFileID)
   const image = {
     url: imageUrl,
-    alt: ''
+    alt: '',
+    height: event?.imageHeight,
+    width: event?.imageWidth,
   };
 
   useEffect(() => {
