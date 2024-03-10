@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { createEvent } from "@/lib/events";
 
 import Layout from '@/components/Layout';
 import Container from '@/components/Container';
@@ -19,6 +20,16 @@ function EventNew() {
 
   async function handleOnSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
+    const target = e.target as typeof e.target & {
+      name: {value:string}
+      location:{value:string}
+      date: {value:string}
+    }
+    const results = await createEvent({
+      name:target.name.value,
+      location:target.location.value,
+      date: new Date(target.date.value).toISOString()
+    })
   }
 
   return (
@@ -39,7 +50,7 @@ function EventNew() {
             event gain momentum like never before on LiveBeat.
           </p>
         </div>
-      
+
         <form className="border border-slate-200 dark:border-slate-500 rounded p-6" onSubmit={handleOnSubmit}>
           <FormRow className="mb-5">
             <FormLabel htmlFor="name">Event Name</FormLabel>
@@ -50,7 +61,7 @@ function EventNew() {
             <FormLabel htmlFor="date">Event Date</FormLabel>
             <InputDate id="date" name="date" type="datetime-local" required />
           </FormRow>
-          
+
           <FormRow className="mb-5">
             <FormLabel htmlFor="location">Event Location</FormLabel>
             <InputText id="location" name="location" type="text" required />
