@@ -10,8 +10,10 @@ import InputDate from '@/components/InputDate';
 import InputFile from '@/components/InputFile';
 import Button from '@/components/Button';
 
+import useLocation from 'wouter/use-location';
 
 function EventNew() {
+  const [,navigate] = useLocation()
   const [error] = useState<string>();
 
   /**
@@ -29,7 +31,9 @@ function EventNew() {
       name:target.name.value,
       location:target.location.value,
       date: new Date(target.date.value).toISOString()
-    })
+    });
+
+    navigate(`/event/${results.event.$id}`)
   }
 
   return (
