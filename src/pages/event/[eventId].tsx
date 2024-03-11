@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import { getEventByID,deleteEventByID, updateEventByID } from '@/lib/events';
 import { LiveBeatEvent } from '@/types/events';
-import { deleteFileById, getPreviewImageById } from '@/lib/storage';
+import { getPreviewImageById } from '@/lib/storage';
 
 import useLocation from 'wouter/use-location';
 
@@ -44,7 +44,6 @@ function Event({params}: {params: {eventId: string}}) {
   async function handleOnDeleteEvent() {
     if (!event?.$id) return;
     await deleteEventByID(event.$id);
-    // await deleteFileById
     navigate(`/`)
   }
 
