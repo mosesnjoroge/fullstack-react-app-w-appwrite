@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import { getEventByID,deleteEventByID, updateEventByID } from '@/lib/events';
 import { LiveBeatEvent } from '@/types/events';
-import { getPreviewImageById } from '@/lib/storage';
+import { deleteFileById, getPreviewImageById } from '@/lib/storage';
 
 import useLocation from 'wouter/use-location';
 
@@ -33,13 +33,6 @@ function Event({params}: {params: {eventId: string}}) {
     })();
   }, [params.eventId]);
 
-  async function handleOnDeleteEvent() {
-    if (!event?.$id) return;
-    await deleteEventByID(event.$id);
-
-    navigate(`/`)
-  }
-
   async function handleOnUpdateEvent() {
     if (!event?.$id) return;
     await updateEventByID(event.$id);
@@ -47,6 +40,14 @@ function Event({params}: {params: {eventId: string}}) {
     // navigate(`/event/${results/event.$id}/update`);
 
   }
+
+  async function handleOnDeleteEvent() {
+    if (!event?.$id) return;
+    await deleteEventByID(event.$id);
+    // await deleteFileById
+    navigate(`/`)
+  }
+
   return (
     <Layout>
       <Container className="grid gap-12 grid-cols-1 md:grid-cols-2">

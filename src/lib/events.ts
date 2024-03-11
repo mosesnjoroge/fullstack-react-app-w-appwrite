@@ -1,7 +1,7 @@
 import { Models, ID } from "appwrite";
 import { databases } from "./appwrite";
 import { LiveBeatEvent } from "@/types/events";
-import { deleteFileById } from "./storage";
+import { deleteFileById } from "@/lib/storage";
 
 // index
 export async function getEvents() {
@@ -42,7 +42,6 @@ export async function deleteEventByID(eventId:LiveBeatEvent['$id']) {
     await deleteFileById(event.imageFileID)
   }
   await databases.deleteDocument(import.meta.env.VITE_APP_APPWRITE_EVENTS_DATABASE_ID, import.meta.env.VITE_APP_APPWRITE_EVENTS_COLLECTION_ID, eventId);
-  // return data;
 }
 
 // instance event definition
