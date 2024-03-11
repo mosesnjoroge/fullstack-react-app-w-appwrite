@@ -1,7 +1,3 @@
-import { useState } from 'react';
-import { createEvent } from "@/lib/events";
-import { uploadFile } from "@/lib/storage";
-
 import Layout from '@/components/Layout';
 import Container from '@/components/Container';
 import FormRow from '@/components/FormRow';
@@ -13,37 +9,20 @@ import Button from '@/components/Button';
 
 import useLocation from 'wouter/use-location';
 
-interface LiveBeatImage {
-  file: File;
-  height: number;
-  width: number;
-}
 
-function EventNew() {
+function EventEdit() {
   // states
   const [,navigate] = useLocation();
   const [error] = useState<string>();
   const [image,setImage] = useState();
 
-  function handelOnChange(event: React.FormEvent<HTMLInputElement>){
-    const target = event.target as HTMLInputElement & {
-      files:FileList;
-    }
+  async function handleOnUpdateEvent() {
+    if (!event?.$id) return;
+    await updateEventByID(event.$id);
 
-    const img = new Image();
-    img.onload = function() {
-      setImage({
-        file: target.files[0],
-        height: img.height,
-        width: img.width,
-      })
-    }
-    img.src = URL.createObjectURL(target.files[0])
+    // navigate(`/event/${results/event.$id}/update`);
+
   }
-  /**
-   * handleOnSubmit
-   */
-
   async function handleOnSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
     const target = e.target as typeof e.target & {
@@ -58,19 +37,8 @@ function EventNew() {
       file = await uploadFile(image.file);
     }
 
-    const results = await createEvent({
-      name:target.name.value,
-      location:target.location.value,
-      date: new Date(target.date.value).toISOString(),
-      imageFileID: file?.$id,
-      imageHeight: image?.height,
-      imageWidth: image?.width
-    });
-
-    navigate(`/event/${results.event.$id}`)
   }
-
-  return (
+  return(
     <Layout>
 
       <Container className="grid gap-12 grid-cols-1 md:grid-cols-2">
@@ -120,7 +88,6 @@ function EventNew() {
 
       </Container>
     </Layout>
-  )
+  );
 }
-
-export default EventNew;
+export default EventEdit;

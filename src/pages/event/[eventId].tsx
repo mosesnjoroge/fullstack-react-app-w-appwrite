@@ -1,16 +1,30 @@
 import { useState, useEffect } from 'react';
 
+import { getEventByID,deleteEventByID, updateEventByID } from '@/lib/events';
+import { LiveBeatEvent } from '@/types/events';
+import { getPreviewImageById } from '@/lib/storage';
+
+import useLocation from 'wouter/use-location';
+
 import Layout from '@/components/Layout';
 import Container from '@/components/Container';
-// import Button from '@/components/Button';
+import Button from '@/components/Button';
 
-import { getEventByID } from '@/lib/events';
-import { LiveBeatEvent } from '@/types/events';
 
-// import events from '@/data/events.json';
 
 function Event({params}: {params: {eventId: string}}) {
+  // states
   const [event,setEvent] = useState<LiveBeatEvent | undefined>();
+  const [,navigate] = useLocation();
+
+  const imageUrl = event?.imageFileID && getPreviewImageById(event.imageFileID)
+
+  const image = {
+    url: imageUrl,
+    alt: '',
+    height: event?.imageHeight,
+    width: event?.imageWidth,
+  };
 
   useEffect(() => {
     (async function run() {
@@ -19,24 +33,33 @@ function Event({params}: {params: {eventId: string}}) {
     })();
   }, [params.eventId]);
 
-  // const image = {
-  //   url: events[0].imageUrl,
-  //   alt: ''
-  // };
+  async function handleOnUpdateEvent() {
+    if (!event?.$id) return;
+    await updateEventByID(event.$id);
+
+    // navigate(`/event/${results/event.$id}/update`);
+
+  }
+
+  async function handleOnDeleteEvent() {
+    if (!event?.$id) return;
+    await deleteEventByID(event.$id);
+    navigate(`/`)
+  }
 
   return (
     <Layout>
       <Container className="grid gap-12 grid-cols-1 md:grid-cols-2">
         <div>
-          {/* {image?.url && (
+          {image?.url && (
             <img
               className="block rounded"
-              width={800}
-              height={450}
+              width={image.width}
+              height={image.height}
               src={image.url}
               alt={image.alt}
             />
-          )} */}
+          )}
         </div>
 
         <div>
@@ -51,9 +74,12 @@ function Event({params}: {params: {eventId: string}}) {
               <p className="text-lg font-medium text-neutral-600 dark:text-neutral-200">
                 <strong>Location:</strong> { event?.location }
               </p>
-              {/* <p className="mt-6">
-                <Button color="red">Delete Event</Button>
-              </p> */}
+              <p className="mt-6">
+                <Button color="red" onClick={handleOnDeleteEvent}>Delete Event</Button>
+              </p>
+              <p className="mt-6">
+                <Button color="red" onClick={handleOnUpdateEvent}>Update Event</Button>
+              </p>
             </>
           )}
         </div>

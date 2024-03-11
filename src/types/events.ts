@@ -3,4 +3,7 @@ export interface LiveBeatEvent {
   name:string;
   location:string;
   date:string;
+  imageFileID?:string;
+  imageHeight?:number;
+  imageWidth?:number;
 }
