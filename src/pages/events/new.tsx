@@ -40,9 +40,7 @@ function EventNew() {
     }
     img.src = URL.createObjectURL(target.files[0])
   }
-  /**
-   * handleOnSubmit
-   */
+
 
   async function handleOnSubmit(e: React.SyntheticEvent) {
     e.preventDefault();

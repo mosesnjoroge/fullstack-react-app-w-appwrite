@@ -4,6 +4,7 @@ import { Link } from 'wouter';
 import { getEvents } from '@/lib/events';
 import { LiveBeatEvent } from '@/types/events';
 
+
 import Layout from '@/components/Layout';
 import Container from '@/components/Container';
 import EventCard from '@/components/EventCard';
@@ -47,9 +48,9 @@ function Home() {
                         date={event.date}
                         // image={{
                         //   alt: '',
-                        //   height: event.imageHeight,
-                        //   url: event.imageUrl,
-                        //   width: event.imageWidth
+                        //   height: event?.imageHeight,
+                        //   url: imageUrl,
+                        //   width: event?.imageWidth
                         // }}
                         location={event.location}
                         name={event.name}
