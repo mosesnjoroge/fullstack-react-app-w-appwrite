@@ -39,10 +39,10 @@ export async function updateEventByID(eventId:LiveBeatEvent['$id']) {
 export async function deleteEventByID(eventId:LiveBeatEvent['$id']) {
   const {event} = await getEventByID(eventId);
   if (event.imageFileID){
-    const resultsFile = await deleteFileById(event.imageFileID)
+    await deleteFileById(event.imageFileID)
   }
-  const data = await databases.deleteDocument(import.meta.env.VITE_APP_APPWRITE_EVENTS_DATABASE_ID, import.meta.env.VITE_APP_APPWRITE_EVENTS_COLLECTION_ID, eventId);
-  return data;
+  await databases.deleteDocument(import.meta.env.VITE_APP_APPWRITE_EVENTS_DATABASE_ID, import.meta.env.VITE_APP_APPWRITE_EVENTS_COLLECTION_ID, eventId);
+  // return data;
 }
 
 // instance event definition
