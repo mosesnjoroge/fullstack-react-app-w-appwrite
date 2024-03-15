@@ -1,8 +1,8 @@
-import {account} from '@/lib/appwrite';
 import {ID} from 'appwrite'
+import {account} from '@/lib/appwrite';
 
 export async function logIn(email:string) {
-  const data =await account.createMagicURLSession(ID.unique(), email, `${window.location.origin}/session`)
+  const data = await account.createMagicURLSession(ID.unique(), email, `${window.location.origin}/session`)
   return data;
 }
 
