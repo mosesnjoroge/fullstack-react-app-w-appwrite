@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { logIn } from '@/lib/auth';
+import { useAuth } from '@/hooks/use-auth';
 
 import Layout from '@/components/Layout';
 import Container from '@/components/Container';
@@ -9,6 +9,7 @@ import InputText from '@/components/InputText';
 import Button from '@/components/Button';
 
 function LogIn() {
+  const {logIn} = useAuth();
   const [sent, setSent] = useState(false);
 
   async function handleOnSubmit(e: React.SyntheticEvent) {
