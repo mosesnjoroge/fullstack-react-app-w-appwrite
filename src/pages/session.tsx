@@ -6,7 +6,7 @@ import { useAuth } from '@/hooks/use-auth';
 import Container from '@/components/Container';
 
 function Session() {
-  const {verifySession} = useAuth();
+  const { verifySession } = useAuth();
   const [,navigate] =  useLocation();
   useEffect (() =>{
     const params = new URLSearchParams(window.location.search);

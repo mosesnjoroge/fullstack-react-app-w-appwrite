@@ -9,7 +9,7 @@ import InputText from '@/components/InputText';
 import Button from '@/components/Button';
 
 function LogIn() {
-  const {logIn} = useAuth();
+  const {session,logIn} = useAuth();
   const [sent, setSent] = useState(false);
 
   async function handleOnSubmit(e: React.SyntheticEvent) {

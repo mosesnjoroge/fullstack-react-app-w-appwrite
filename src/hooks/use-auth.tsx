@@ -32,9 +32,8 @@ export function useAuthState() {
     })();
   }, [])
   async function verifySessionAndSave(options: VerifySessionOptions) {
-    const data = await verifySesssion(options);
+    const data = await verifySession(options);
     setSession(data);
-
   }
   async function logOut() {
     await deleteCurrentSession();
