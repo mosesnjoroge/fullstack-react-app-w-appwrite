@@ -1,10 +1,12 @@
 import { createContext,useContext,ReactNode,useState,useEffect } from "react";
 import { Models } from "appwrite";
-import { getCurrentSession,deleteCurrentSession } from "@/lib/auth";
+import { logIn ,verifySession , getCurrentSession, deleteCurrentSession, VerifySessionOptions } from "@/lib/auth";
 
 interface AppAuthContext{
   session?: Models.Session;
+  logIn: Function;
   logOut: Function;
+  verifySession: Function;
 }
 
 export const AuthContext = createContext<AppAuthContext | undefined >(undefined)
@@ -29,8 +31,10 @@ export function useAuthState() {
       setSession(data.session);
     })();
   }, [])
-  async function logIn() {
-    await logIn()
+  async function verifySessionAndSave(options: VerifySessionOptions) {
+    const data = await verifySesssion(options);
+    setSession(data);
+
   }
   async function logOut() {
     await deleteCurrentSession();
@@ -39,7 +43,9 @@ export function useAuthState() {
 
   return{
     session,
-    logOut
+    logIn,
+    logOut,
+    verifySession: verifySessionAndSave
   }
 }
 

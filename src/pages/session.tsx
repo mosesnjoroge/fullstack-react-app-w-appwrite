@@ -1,17 +1,17 @@
 import {useEffect} from 'react'
 import { verifySession } from '@/lib/auth';
 import { useLocation } from 'wouter';
+import { useAuth } from '@/hooks/use-auth';
+
 import Container from '@/components/Container';
 
 function Session() {
+  const {verifySession} = useAuth();
   const [,navigate] =  useLocation();
   useEffect (() =>{
     const params = new URLSearchParams(window.location.search);
     const userId = params.get('userId');
     const secret = params.get('secret');
-
-    console.log('userId', userId);
-    console.log('secret', secret);
 
     if(typeof userId !== 'string' || typeof secret !== 'string'){
       navigate('/login');
@@ -19,7 +19,7 @@ function Session() {
     }
 
     (async function run() {
-      await verifySession(userId,secret);
+      await verifySession({userId,secret});
       navigate('/');
     })();
   },[]);
