@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { getEventByID,deleteEventByID, updateEventByID } from '@/lib/events';
 import { LiveBeatEvent } from '@/types/events';
 import { getPreviewImageById } from '@/lib/storage';
-
+import { useAuth } from '@/hooks/use-auth';
 import useLocation from 'wouter/use-location';
 
 import Layout from '@/components/Layout';
@@ -14,8 +14,10 @@ import Button from '@/components/Button';
 
 function Event({params}: {params: {eventId: string}}) {
   // states
+  const {isAdmin} = useAuth();
   const [event,setEvent] = useState<LiveBeatEvent | undefined>();
   const [,navigate] = useLocation();
+
 
   const imageUrl = event?.imageFileID && getPreviewImageById(event.imageFileID)
 
@@ -74,12 +76,12 @@ function Event({params}: {params: {eventId: string}}) {
               <p className="text-lg font-medium text-neutral-600 dark:text-neutral-200">
                 <strong>Location:</strong> { event?.location }
               </p>
-              <p className="mt-6">
-                <Button color="red" onClick={handleOnDeleteEvent}>Delete Event</Button>
-              </p>
-              <p className="mt-6">
-                <Button color="red" onClick={handleOnUpdateEvent}>Update Event</Button>
-              </p>
+              {isAdmin &&(
+                <p className="mt-6">
+                  <Button color="red" onClick={handleOnDeleteEvent}>Delete Event</Button>
+                  <Button color="red" onClick={handleOnUpdateEvent}>Update Event</Button>
+                </p>
+              )}
             </>
           )}
         </div>

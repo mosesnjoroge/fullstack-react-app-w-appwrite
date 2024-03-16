@@ -1,5 +1,5 @@
 import {useEffect} from 'react'
-import { verifySession } from '@/lib/auth';
+
 import { useLocation } from 'wouter';
 import { useAuth } from '@/hooks/use-auth';
 

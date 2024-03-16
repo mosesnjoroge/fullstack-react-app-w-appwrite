@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '@/hooks/use-auth';
-
+import { Redirect } from 'wouter';
 import Layout from '@/components/Layout';
 import Container from '@/components/Container';
 import FormRow from '@/components/FormRow';
@@ -21,6 +21,9 @@ function LogIn() {
     await logIn(target.email.value);
 
     setSent(true);
+  }
+  if (session){
+    return <Redirect to="/" />
   }
   return (
     <Layout>
