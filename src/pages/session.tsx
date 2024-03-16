@@ -1,12 +1,14 @@
-import {useEffect} from 'react'
+import {useState,useEffect} from 'react'
 
 import { useLocation } from 'wouter';
 import { useAuth } from '@/hooks/use-auth';
 
 import Container from '@/components/Container';
+import { AppwriteException } from 'appwrite';
 
 function Session() {
   const { verifySession } = useAuth();
+  const [error, setError] = useState<string>();
   const [,navigate] =  useLocation();
   useEffect (() =>{
     const params = new URLSearchParams(window.location.search);
@@ -19,14 +21,27 @@ function Session() {
     }
 
     (async function run() {
-      await verifySession({userId,secret});
-      navigate('/');
+      try{
+        await verifySession({userId,secret});
+        navigate('/');
+      }catch(error: unknown){
+        AppwriteException
+        if (error instanceof AppwriteException){
+          setError(error.message)
+        }
+        console.log('error',error);
+
+      }
     })();
   },[]);
 
   return (
     <Container className="h-screen flex items-center justify-center text-center">
-      <p>Logging you in...</p>
+      {!error &&(
+        <p>Logging you in...</p>
+      )}
+      {error}
+
     </Container>
   )
 }

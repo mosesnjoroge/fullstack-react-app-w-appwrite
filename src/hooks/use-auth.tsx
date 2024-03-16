@@ -24,31 +24,6 @@ export function AuthProvider({children}: AuthProviderProps) {
  );
 }
 
-// export function useAuthState() {
-//   const [session,setSession] = useState<Models.Session>();
-//   useEffect(()=> {
-//     (async function run() {
-//       const data = await getCurrentSession();
-//       setSession(data.session);
-//     })();
-//   }, [])
-//   async function verifySessionAndSave(options: VerifySessionOptions) {
-//     const data = await verifySession(options);
-//     setSession(data);
-//   }
-//   async function logOut() {
-//     await deleteCurrentSession();
-//     setSession(undefined);
-//   }
-
-//   return{
-//     session,
-//     logIn,
-//     logOut,
-//     verifySession: verifySessionAndSave
-//   }
-// }
-
 export function useAuth() {
   const auth = useContext(AuthContext);
   if(!auth){
