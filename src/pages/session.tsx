@@ -10,6 +10,8 @@ function Session() {
   const { verifySession } = useAuth();
   const [error, setError] = useState<string>();
   const [,navigate] =  useLocation();
+
+  // use effect
   useEffect (() =>{
     const params = new URLSearchParams(window.location.search);
     const userId = params.get('userId');
@@ -27,10 +29,9 @@ function Session() {
       }catch(error: unknown){
         AppwriteException
         if (error instanceof AppwriteException){
-          setError(error.message)
+          setError(error.message);
+          navigate('/login?error=${error}');
         }
-        console.log('error',error);
-
       }
     })();
   },[]);
