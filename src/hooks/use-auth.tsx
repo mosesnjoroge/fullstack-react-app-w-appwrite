@@ -2,6 +2,7 @@ import { createContext,useContext,ReactNode} from "react";
 import { Models } from "appwrite";
 import { useAuthState } from "./use-auth-state";
 
+
 interface AppAuthContext{
   session?: Models.Session;
   isAdmin?: boolean;
