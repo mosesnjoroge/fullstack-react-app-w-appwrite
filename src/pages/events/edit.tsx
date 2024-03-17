@@ -1,7 +1,9 @@
+import { useState } from "react";
 import Layout from '@/components/Layout';
 import useLocation from 'wouter/use-location';
 import Form from './form';
-
+import { updateEventByID } from "@/lib/events";
+import { uploadFile } from "@/lib/storage";
 
 function EventEdit() {
   // states
@@ -13,7 +15,7 @@ function EventEdit() {
     if (!event?.$id) return;
     await updateEventByID(event.$id);
 
-    // navigate(`/event/${results/event.$id}/update`);
+    navigate(`/event/${results/event.$id}/update`);
 
   }
   async function handleOnSubmit(e: React.SyntheticEvent) {
@@ -33,10 +35,13 @@ function EventEdit() {
   }
   return(
     <Layout>
-    <Form handleOnChange={handleOnChange} handleOnSubmit={handleOnSubmit}/>
-    {error && (
-      <p className="bg-red-50 p-4 mt-6 rounded">{ error }</p>
-    )}
+      <h1 className="text-3xl font-bold mb-6">
+        Edit Event
+      </h1>
+      <Form handleOnChange={handleOnUpdateEvent} handleOnSubmit={handleOnSubmit}/>
+      {error && (
+        <p className="bg-red-50 p-4 mt-6 rounded">{ error }</p>
+      )}
     </Layout>
   );
 }

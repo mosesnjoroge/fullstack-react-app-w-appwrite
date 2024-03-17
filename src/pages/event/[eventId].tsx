@@ -36,10 +36,10 @@ function Event({params}: {params: {eventId: string}}) {
   }, [params.eventId]);
 
   async function handleOnUpdateEvent() {
-    if (!event?.$id) return;
-    await updateEventByID(event.$id);
+    // if (!event?.$id) return;
+    // await updateEventByID(event.$id);
 
-    // navigate(`/event/${results/event.$id}/update`);
+    navigate(`/event/${event.$id}/edit`);
 
   }
 

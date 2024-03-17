@@ -7,12 +7,7 @@ import Form from './form';
 
 import Layout from '@/components/Layout';
 import Container from '@/components/Container';
-// import FormRow from '@/components/FormRow';
-// import FormLabel from '@/components/FormLabel';
-// import InputText from '@/components/InputText';
-// import InputDate from '@/components/InputDate';
-// import InputFile from '@/components/InputFile';
-// import Button from '@/components/Button';
+
 
 
 // interface LiveBeatImage {
